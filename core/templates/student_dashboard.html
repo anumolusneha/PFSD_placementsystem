@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="color:red;">TEST WORKING</h1>
+<!-- 1️⃣ Welcome Card -->
+<div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+        <h2 style="margin:0;">Welcome, {{ request.user.username }}</h2>
+        <p class="muted">Student Dashboard</p>
+    </div>
+
+    <div>
+        <a href="{% url 'job_list' %}">
+            <button class="btn">View Available Jobs</button>
+        </a>
+    </div>
+</div>
+
+
+<!-- 2️⃣ ADD THIS STATS SECTION HERE -->
+<div style="display:flex; gap:20px; margin-top:30px;">
+
+    <div class="card" style="flex:1; text-align:center;">
+        <h3>{{ applications|length }}</h3>
+        <p class="muted">Total Applications</p>
+    </div>
+
+    <div class="card" style="flex:1; text-align:center;">
+        <h3>0</h3>
+        <p class="muted">Selected</p>
+    </div>
+
+    <div class="card" style="flex:1; text-align:center;">
+        <h3>0</h3>
+        <p class="muted">Rejected</p>
+    </div>
+
+</div>
+
+
+<!-- 3️⃣ My Applications -->
+<div class="card" style="margin-top:30px;">
+    <h3>My Applications</h3>
+    <hr style="border:1px solid #334155; margin:15px 0;">
+
+    {% if applications %}
+        {% for app in applications %}
+            <div style="padding:15px 0; border-bottom:1px solid #334155;">
+                <strong>{{ app.job.title }}</strong><br>
+                <span class="muted">Company: {{ app.job.company }}</span><br>
+                <span class="muted">Status: {{ app.status }}</span>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="muted">You have not applied to any jobs yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

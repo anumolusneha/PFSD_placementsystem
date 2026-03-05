@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Post New Job</h2>
+
+<div class="card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Title</label>
+        <input type="text" name="title">
+
+        <label>Description</label>
+        <textarea name="description"></textarea>
+
+        <label>Location</label>
+        <input type="text" name="location">
+
+        <label>Salary</label>
+        <input type="text" name="salary">
+
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

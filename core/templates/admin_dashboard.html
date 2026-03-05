@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card">
+    <h2>Admin Dashboard</h2>
+    <p class="muted">Manage placements and applications</p>
+</div>
+
+<br>
+
+<div class="card">
+    <h3>All Applications</h3>
+
+    {% if applications %}
+    <table border="1" width="100%" cellpadding="10">
+        <tr>
+            <th>Student</th>
+            <th>Job</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for app in applications %}
+        <tr>
+            <td>{{ app.student.username }}</td>
+            <td>{{ app.job.title }}</td>
+            <td>{{ app.status }}</td>
+            <td>
+                {% if app.status == "Pending" %}
+                    <a href="{% url 'select_application' app.id %}" style="color:green;">Select</a> |
+                    <a href="{% url 'reject_application' app.id %}" style="color:red;">Reject</a>
+                {% else %}
+                    No Action
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <p>No applications found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

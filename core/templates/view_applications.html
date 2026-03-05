@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .select-btn {
+            background-color: green;
+        }
+        .reject-btn {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h2>All Student Applications</h2>
+
+{% if applications %}
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Job Title</th>
+        <th>Company</th>
+        <th>Resume</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for app in applications %}
+    <tr>
+        <td>{{ app.student.username }}</td>
+        <td>{{ app.job.title }}</td>
+        <td>{{ app.job.company.username }}</td>
+        <td>
+            <a href="{{ app.resume.url }}" target="_blank">View Resume</a>
+        </td>
+        <td>{{ app.status }}</td>
+        <td>
+            <a href="{% url 'update_status' app.id 'Selected' %}">
+                <button class="btn select-btn">Select</button>
+            </a>
+            <a href="{% url 'update_status' app.id 'Rejected' %}">
+                <button class="btn reject-btn">Reject</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No applications found.</p>
+{% endif %}
+
+</body>
+</html>
